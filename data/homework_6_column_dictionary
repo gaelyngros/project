@@ -1,0 +1,22 @@
+Ammocrypta clara Field Data Dictionary
+
+Site - the label name for where the sample was taken; 3 samples per site
+Sample - a numeric value corresponding to the samples for that site
+Stream position - the part of the river the sample was taken from
+Coordinates - the latitudinal positionng of teh sample
+Coordinates.1 - the longitudinal positioning of the sample
+Temperature - the temperature of the water at the site
+Conductivity - the ability of an electrical current to pass through the water at the sample site
+Salinity - how much salt is in the water at the sample site (ppt)
+DO - the amount of oxygen dissolved in the water in mg/L at the sample site
+PH - the level of hydrogen ions in the water based on scale from 1-14
+DO % - the percentage of dissolved oxygen in the water
+Turbidity - the level of clarity of the water bsed on the amount of sediment suspended in the water column
+Depth - how far below the waters surface the sample was taken in feet
+Location - a descripton of where the site is in reference to the boat launch or some landmark
+Elevation - height above sea level in feet at the site
+Month - the month the sample was collected in, a number 1-12
+Day - the day the sample was collected, a number 1-31
+Year - the year the sample was collected, the number 2022
+
+
