@@ -1,0 +1,11 @@
+  git config --global user.email "gaelyn.gros@selu.edu"
+  git config --global user.name "Gaelyn Gros"
+  
+  
+  
+  
+red_river <- ac_field_data %>%
+red_alone <- separate(red_river, taxon, c("genus", "species"))
+
+filter(Month == 6) %>%
+select(Site, Sample, Stream.Position, Coordinates, Coordinates.1, Month)
