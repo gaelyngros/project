@@ -1,0 +1,162 @@
+---
+title: "Project Two"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+Due Oct. 21 at 11:59 PM. 
+
+For this first part of the exam, you can either use `surveys_complete.csv` or your own data. If you are using your own data, you must have data in which you think you have a numerical predictor variable and a numerical response variable. If you are using `surveys_complete`, you can use weight and hindfoot_length for this.
+
+Save this file in your `projects` directory. You can either save it in a project two subdirectory, or just put it in projects. Either way is fine.
+
+
+1) Load in your data. Which variable will you be using as a predictor, and which as a response? (5 pts)
+
+```{r}
+# ac_data <- read_csv ("ac_field_data.csv")
+```
+
+```
+# My predictor column is DO and my response variable is the DO Percentage column.
+```
+
+2) Plot the two against each other with a scatter plot. Do the data appear to be related linearly? (5 pts)
+
+
+```{r}
+do_plot <- ggplot(ac_data, aes(x = DO, y=DO_percentage)) + geom_point()
+```
+
+```
+Don't seem particularly linear
+```
+
+
+3) Fit the linear model. View the summary. (5 pts)
+
+
+```{r}
+model_fit_proj_two <- lm(DO_percentage ~ DO, data = ac_data)
+```
+
+4) Does the summary make sense when you compare it to the plot you made? Does our model have good predictive power? Evaluate the residual standard error, intercept, and R-Squared in particular. Would you say your predictor predicts the response?  (10 pts)
+
+
+```
+Yes it seems to match the plot produced, our model appears to predicts the response half the time, which is not very good.  
+```
+
+
+5) Plot the model on the graph. Increase the size of the text so it is comfortably readable at 5 feet. Make sure axis labels are readable and not overlapping with one another. (5 pts)
+
+``` {r}
+model_plot <- ggplot(ac_data, aes(x = DO, y = DO_percentage)) + geom_point(size = 0.5) + geom_smooth(method = "lm", color = "navy", size = .05, fill = "deeppink") + labs(x = "DO", y = "DO Percentage", title = "Linear regression to predict Dissolved Oxygen Percentage") + annotate("text", x = 6, y = 70, label = "R^2 == 0.586", parse=T, color = "firebrick", size = 5)  + theme_bw()
+```
+
+
+6) Check the normality of the residuals. Do they look OK? Are we violating assumptions? (5 pts)
+
+```{r}
+
+broom::augment(model_fit_proj_two) -> augmented_fit_proj_two
+qqnorm(augmented_fit_proj_two$.resid)
+qqline(augmented_fit_proj_two$.resid, col = "red")
+
+```
+
+Why is normality of residuals important? 
+
+```{r}
+
+#qqnorm displays a visual representation of the normality of the residuals which is important for informing the user on how well the data fit the model and if the model's predictions were reliable.
+```
+
+7) If you are using `surveys_complete`: Is there interspecific variation in the linear model? Hint: look at our prior work with facet plots. (15 pts) 
+
+If you are *not* using  `surveys_complete`: Do you think there are groupings within your data that may have a separate linear model? Try grouping the data by that variable and redoing the lm. If this would not make sense for your data, you may also attempt to do multiple predictor variables. (15 pts)
+
+```{r}
+model_fit_again <- lm(latitude ~ longitude + river + longitude:river, data = ac_data)
+summary(model_fit_again)
+```
+
+## Part Two
+
+In this portion, you are free to use your own data if you have a categorical predictor variable and a response variable. Otherwise, you may use the columns sex and weight in `surveys_complete`
+
+1) First, plot the data grouped by sex (5 pts)
+
+```{r}
+grouped_rivers <- ac_data %>% 
+group_by(river)
+
+grouped_rivers_plot <- ggplot(grouped_rivers, aes(x = longitude, y = latitude, color=river)) + geom_point()
+grouped_rivers_plot
+```
+
+2) Try an ANOVA of this data (5 pt)
+
+```{r}
+model_fit_PH <- lm(PH ~ stream_position, data = ac_data)
+summary(model_fit_PH)
+```
+
+3) How about a linear model? What information does this give you that an ANOVA can't? (5 pts)
+
+
+```{r}
+model_fit_3 <- lm(PH ~ stream_position + salinity_ppt, data = ac_data)
+summary(model_fit_3)
+```
+
+```
+Linear models can look at interacting variables rather than just independent variables.
+```
+
+3) Plot the lm with the data, with points colored by sex. (10 pts)
+
+
+```{r}
+ph_plot <- ggplot(model_fit_3, aes(x = PH, y = salinity_ppt, color = stream_position)) + geom_point()
+ph_plot
+```
+
+4) Choose any model we've looked at so far, but use two predictor variables. Perform an LM, plot the results, and state if this changes your interpretation of the relationship between variables (10 pts)
+
+```{r}
+model_fit_4 <- lm(DO_percentage ~ salinity_ppt + turbidity, data = ac_data)
+summary(model_fit_4) 
+```
+
+```{r}
+lm_4 <- ggplot(ac_data, aes(x = turbidity, y = DO_percentage, color = salinity_ppt)) + geom_point(size = 2.5) + labs(x = "Turbidity", y = "DO Percentage", color = "Salinity (ppt)") + scale_color_distiller(palette = "Blues") + annotate("text", x = 150, y = 70, label = "R^2 == 0.1243", parse=T, size=5) + theme(legend.position = "bottom")
+lm_4
+```
+
+```
+
+```
+
+## Part Three
+
+
+1) Add and commit this document (5 pts)
+
+```
+library(gitcreds)
+gitcreds_set()
+```
+
+2) Push your changes to github (10 pts)
+
+```
+#Commands here
+```
+
+
+
+# MS students
+
+My expectation is that you'll do this with your own data. If any part of this doesn't make sense with your data, please get in touch ASAP so we can work it out.
