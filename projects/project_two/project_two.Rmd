@@ -136,7 +136,7 @@ lm_4
 ```
 
 ```
-
+My expectation of the interaction between these variables changes slightly considering running water can sometimes be less turbid and introduce more oxygen while stagnant water can be more turbid with lower oxygen levels.  Running water can also stir up the substrate though which can contribute to a higher turbidity and a higher oxygen level.  I am unsure as to how these variables should interact for these rivers in particular.
 ```
 
 ## Part Three
